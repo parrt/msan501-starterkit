@@ -1,59 +1,90 @@
 from graph import *
+import sys
 
-# support code
+def assertequals(result, expecting):
+	if result != expecting:
+		sys.stderr.write("Failure: expecting %s found %s\n" % (expecting, result))
 
-def chktargets(start, expecting):
-	if adj[start] != expecting:
-		print "error for", start, ": expecting", expecting, "found", adj[start]
+# TEST 1
 
-def checknodes(start, expecting):
-	result = nodes(adj, start)
-	if set(result) != set(expecting):
-		print "error starting at", start, ": expecting", expecting, "found", result
-
-data = """
-parrt: tombu, dmose, parrt
-tombu: dmose, kg9s
-dmose: tombu
-kg9s: dmose
+gr = \
+"""a: b, c
+b: c, d
+c: b
+d: c
 """
 
-adj = adjlist(data)
+print "Test #1:"
+print gr
 
-nodenames = adj.keys()
-expecting = ['parrt', 'tombu', 'dmose', 'kg9s']
-if nodenames != expecting:
-	print "error: expecting", expecting, "found", nodenames
-chktargets('parrt', ['tombu', 'dmose', 'parrt'])
-chktargets('tombu', ['dmose', 'kg9s'])
-chktargets('dmose', ['tombu'])
-chktargets('kg9s', ['dmose'])
+al = adjlist(gr)
+am = adjmatrix(al)
+nl = ['a','b','c','d']
+reach = {}
+for n in nl:
+	reach[n] = nodes(al, n)
 
-A = adjmatrix(adj)
-expecting = [[1, 1, 1, 0],
-			 [0, 0, 1, 1],
-			 [0, 1, 0, 0],
-			 [0, 0, 1, 0]]
-if A != expecting:
-	print "error: expecting", expecting, "found", A
+#print al
+assertequals(set(al['a']), {'b','c'})
+assertequals(set(al['b']), {'c','d'})
+assertequals(set(al['c']), {'b'})
+assertequals(set(al['d']), {'c'})
+#print am
+assertequals(str(am), "[[0, 1, 1, 0], [0, 0, 1, 1], [0, 1, 0, 0], [0, 0, 1, 0]]")
 
-checknodes("parrt", ['parrt', 'tombu', 'dmose', 'kg9s'])
-checknodes("tombu", ['tombu', 'dmose', 'kg9s'])
-checknodes("dmose", ['tombu', 'dmose', 'kg9s'])
-checknodes("kg9s", ['dmose', 'kg9s', 'tombu'])
+#print reach
+# use a set to check equality to ignore order
+assertequals(set(reach['a']), {'a','b','c','d'})
+assertequals(set(reach['b']), {'b','c','d'})
+assertequals(set(reach['c']), {'b','c','d'})
+assertequals(set(reach['d']), {'b','c','d'})
 
-dot = gendot(adj)
-expecting = """digraph g {
-  rankdir=LR;
-  parrt -> tombu;
-  parrt -> dmose;
-  parrt -> parrt;
-  tombu -> dmose;
-  tombu -> kg9s;
-  dmose -> tombu;
-  kg9s -> dmose;
-}
+# TEST 2
+
+gr = \
+"""Paul: Jenny
+Jenny: Marcelo
+Marcelo: Chris, Eileen, Pamela
+Chris: Terence
+Eileen: Paul
+Pamela: Paul
+Terence: Paul
 """
 
-if dot != expecting:
-	print "error: invalid DOT"
+print "Test #2:"
+print gr
+
+al = adjlist(gr)
+am = adjmatrix(al)
+nl = ['Paul', 'Jenny', 'Marcelo', 'Chris', 'Eileen', 'Pamela', 'Terence']
+reach = {}
+for n in nl:
+	reach[n] = nodes(al, n)
+
+#print al
+assertequals(set(al['Paul']), {'Jenny'})
+assertequals(set(al['Jenny']), {'Marcelo'})
+assertequals(set(al['Marcelo']), {'Chris', 'Eileen', 'Pamela'})
+assertequals(set(al['Eileen']), {'Paul'})
+assertequals(set(al['Pamela']), {'Paul'})
+assertequals(set(al['Terence']), {'Paul'})
+
+#print am
+assertequals(str(am), "[[0, 1, 0, 0, 0, 0, 0],"+\
+					  " [0, 0, 1, 0, 0, 0, 0],"+\
+					  " [0, 0, 0, 1, 1, 1, 0],"+\
+					  " [0, 0, 0, 0, 0, 0, 1],"+\
+					  " [1, 0, 0, 0, 0, 0, 0],"+\
+					  " [1, 0, 0, 0, 0, 0, 0],"+\
+					  " [1, 0, 0, 0, 0, 0, 0]]")
+
+#print reach
+# use a set to check equality to ignore order
+assertequals(set(reach['Paul']), {'Paul', 'Jenny', 'Marcelo', 'Chris', 'Eileen', 'Pamela', 'Terence'})
+assertequals(set(reach['Jenny']), {'Paul', 'Jenny', 'Marcelo', 'Chris', 'Eileen', 'Pamela', 'Terence'})
+assertequals(set(reach['Marcelo']), {'Paul', 'Jenny', 'Marcelo', 'Chris', 'Eileen', 'Pamela', 'Terence'})
+assertequals(set(reach['Eileen']), {'Paul', 'Jenny', 'Marcelo', 'Chris', 'Eileen', 'Pamela', 'Terence'})
+assertequals(set(reach['Pamela']), {'Paul', 'Jenny', 'Marcelo', 'Chris', 'Eileen', 'Pamela', 'Terence'})
+assertequals(set(reach['Terence']), {'Paul', 'Jenny', 'Marcelo', 'Chris', 'Eileen', 'Pamela', 'Terence'})
+
+print "All tests pass"
