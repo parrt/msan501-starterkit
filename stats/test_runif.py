@@ -10,9 +10,9 @@ seed_235423 = [0.8425073301617556, 0.02069802862624546, 0.8717671213074434]
 
 def test_666():
     for x in seed_666:
-        assert np.isclose(runif(), x)
+        assert np.isclose(runif01(), x)
 
 def test_seed_235423():
     setseed(235423)
     for x in seed_235423:
-        assert np.isclose(runif(), x)
+        assert np.isclose(runif01(), x)
