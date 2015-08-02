@@ -1,3 +1,5 @@
+from pylab import show, text
+
 from regression import *
 
 # Average hourly wage
