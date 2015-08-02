@@ -13,6 +13,8 @@ def Cost(B,X=HOURLY_WAGE,Y=MURDERS):
 		...
 	return cost
 
+random.seed(int(round(time.time() * 1000)))
+
 begin = time.time()
 (m,steps,trace) = minimize(Cost, B0, LEARNING_RATE, h, PRECISION)
 end = time.time()
