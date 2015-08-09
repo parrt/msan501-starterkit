@@ -42,42 +42,25 @@ def x2(x): return (x - 2) ** 2 + 1
 
 def x3(x): return 5 * x ** 3 + 2 * x ** 2 - 3 * x
 
+def check(f, x0, minx):
+    tracex = minimize(f, x0, LEARNING_RATE, h, PRECISION)
 
-tests = [(cosf, 0.1, 0.29691298),
-         (cosf, 0.8, 0.98865134),
-         (cosf, 0.3, 0.29691298),
-         (cosf, 1.2, 0.98865134),
-         (cosf, 0.05, 0.29691298),
+    start = tracex[0]
+    stop = tracex[-1]
 
-         (x2, 2.0, 2.0),
-         (x2, -1.0, 2.0),
-         (x2, -9.3, 2.0),
+    assert round(stop*10000) == round(minx*10000)
 
-         (x3, 2.0, 1 / 3.0),
-         (x3, 0.5, 1 / 3.0),
-         (x3, 1 / 3.0, 1 / 3.0),
-         (x3, 1.0, 1 / 3.0),
-]
+def test_1(): check(cosf, 0.1, 0.29691298)
+def test_2(): check(cosf, 0.8, 0.98865134)
+def test_3(): check(cosf, 0.3, 0.29691298)
+def test_4(): check(cosf, 1.2, 0.98865134)
+def test_5(): check(cosf, 0.05, 0.29691298)
 
-print """def cosf(x): return np.cos(3 * np.pi * x) / x
-def x2(x): return (x-2)**2 + 1
-def x3(x): return 5*x**3 + 2*x**2 - 3*x
-"""
+def test_6(): check(x2, 2.0, 2.0)
+def test_7(): check(x2, -1.0, 2.0)
+def test_8(): check(x2, -9.3, 2.0)
 
-def test_all(): # make it visible to pytest
-    for t in tests:
-        f = t[0]
-        x0 = t[1]
-        minx = t[2]
-        tracex = minimize(f, x0, LEARNING_RATE, h, PRECISION)
-
-        start = tracex[0]
-        stop = tracex[-1]
-
-        assert round(stop*10000) == round(minx*10000)
-
-        # print "Start f(x=%2.8f)=%2.8f" % (start, f(start))
-        # print "x0 = %1.2f; min = %s(x=%2.3f)=%2.3f" % (x0, f.__name__, stop, f(stop))
-
-
-test_all()
+def test_9(): check(x3, 2.0, 1 / 3.0)
+def test_10(): check(x3, 0.5, 1 / 3.0)
+def test_11(): check(x3, 1 / 3.0, 1 / 3.0)
+def test_12(): check(x3, 1.0, 1 / 3.0)
