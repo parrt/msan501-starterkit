@@ -13,28 +13,29 @@ def Cost(B,X=HOURLY_WAGE,Y=MURDERS):
 	...
 
 
-errors = 0
-
 def check(B0, f, X, Y, eta, h, precision):
-    global errors
     print "starting at", B0
     (m, steps, trace) = minimize(f, B0, eta, h, precision)
     print "gradient descent gives ", m, "Cost", Cost2(m)
 
     fit = np.polyfit(X, Y, 1)
     print "exact is               ", [fit[1], fit[0]]
-    if int(m[0]*1000) != int(fit[1]*1000):
-        print "Descent didn't converge to 3 decimals starting from", B0
-        errors += 1
+    assert int(m[0]*1000) == int(fit[1]*1000)
 
-check([-23, 12], Cost, HOURLY_WAGE, MURDERS, LEARNING_RATE, h, PRECISION)
-check([-50, 10], Cost, HOURLY_WAGE, MURDERS, LEARNING_RATE, h, PRECISION)
-check([-36, 17], Cost, HOURLY_WAGE, MURDERS, LEARNING_RATE, h, PRECISION)
-check([-36, 15], Cost, HOURLY_WAGE, MURDERS, LEARNING_RATE, h, PRECISION)
-check([100, 17], Cost, HOURLY_WAGE, MURDERS, LEARNING_RATE, h, PRECISION)
-check([-15, 0],  Cost, HOURLY_WAGE, MURDERS, LEARNING_RATE, h, PRECISION)
+def test_1():
+    check([-23, 12], Cost, HOURLY_WAGE, MURDERS, LEARNING_RATE, h, PRECISION)
 
-if errors==0:
-    print "ALL TESTS PASS"
-else:
-    print "TEST(S) FAIL"
+def test_2():
+    check([-50, 10], Cost, HOURLY_WAGE, MURDERS, LEARNING_RATE, h, PRECISION)
+
+def test_3():
+    check([-36, 17], Cost, HOURLY_WAGE, MURDERS, LEARNING_RATE, h, PRECISION)
+
+def test_4():
+    check([-36, 15], Cost, HOURLY_WAGE, MURDERS, LEARNING_RATE, h, PRECISION)
+
+def test_5():
+    check([100, 17], Cost, HOURLY_WAGE, MURDERS, LEARNING_RATE, h, PRECISION)
+
+def test_6():
+    check([-15, 0],  Cost, HOURLY_WAGE, MURDERS, LEARNING_RATE, h, PRECISION)

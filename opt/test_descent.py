@@ -64,15 +64,20 @@ def x2(x): return (x-2)**2 + 1
 def x3(x): return 5*x**3 + 2*x**2 - 3*x
 """
 
-for t in tests:
-    f = t[0]
-    x0 = t[1]
-    minx = t[2]
-    tracex = minimize(f, x0, LEARNING_RATE, h, PRECISION)
+def test_all(): # make it visible to pytest
+    for t in tests:
+        f = t[0]
+        x0 = t[1]
+        minx = t[2]
+        tracex = minimize(f, x0, LEARNING_RATE, h, PRECISION)
 
-    start = tracex[0]
-    stop = tracex[-1]
+        start = tracex[0]
+        stop = tracex[-1]
 
-    # print "Start f(x=%2.8f)=%2.8f" % (start, f(start))
-    print "x0 = %1.2f; min = %s(x=%2.3f)=%2.3f" % (x0, f.__name__, stop, f(stop))
+        assert round(stop*10000) == round(minx*10000)
 
+        # print "Start f(x=%2.8f)=%2.8f" % (start, f(start))
+        # print "x0 = %1.2f; min = %s(x=%2.3f)=%2.3f" % (x0, f.__name__, stop, f(stop))
+
+
+test_all()
