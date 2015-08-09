@@ -48,7 +48,7 @@ def check(f, x0, minx):
     start = tracex[0]
     stop = tracex[-1]
 
-    assert round(stop*10000) == round(minx*10000)
+    assert round(stop*1000) == round(minx*1000)
 
 def test_1(): check(cosf, 0.1, 0.29691298)
 def test_2(): check(cosf, 0.8, 0.98865134)
