@@ -2,33 +2,6 @@ from descent import minimize
 import numpy as np
 import sys
 
-"""
-Results should look like:
-
-x0 = 0.10; min = cosf(x=0.297)=-3.172
-x0 = 0.80; min = cosf(x=0.989)=-1.006
-x0 = 0.30; min = cosf(x=0.297)=-3.172
-x0 = 1.20; min = cosf(x=0.989)=-1.006
-x0 = 0.05; min = cosf(x=0.297)=-3.172
-x0 = 2.00; min = x2(x=2.000)=1.000
-x0 = -1.00; min = x2(x=2.000)=1.000
-x0 = -9.30; min = x2(x=2.000)=1.000
-x0 = 2.00; min = x3(x=0.333)=-0.593
-x0 = 0.50; min = x3(x=0.333)=-0.593
-x0 = 0.33; min = x3(x=0.333)=-0.593
-x0 = 1.00; min = x3(x=0.333)=-0.593
-"""
-
-
-def assertequals(which, result, expecting):
-    if abs(result - expecting) > 0.0001:
-        sys.stderr.write(
-            "Failure: %s expecting %1.4f found %1.4f (not within %1.2f)\n" % (
-            which, expecting, result, PRECISION))
-        return False
-    return True
-
-
 LEARNING_RATE = 2.0
 h = 0.00001
 PRECISION = 0.00000001  # can't be too small as f(x)-f(xprev) prec is low
