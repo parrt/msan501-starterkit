@@ -1,4 +1,5 @@
 from tfidf import *
+import re
 
 def test_get_text(tmpdir):
     xml = \
