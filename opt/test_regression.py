@@ -18,7 +18,7 @@ def Cost(B,X=HOURLY_WAGE,Y=MURDERS):
 def check(B0, f, X, Y, eta, h, precision):
     print "starting at", B0
     (m, steps, trace) = minimize(f, B0, eta, h, precision)
-    print "gradient descent gives ", m, "Cost", Cost2(m)
+    print "gradient descent gives ", m, "Cost", Cost(m)
 
     fit = np.polyfit(X, Y, 1)
     print "exact is               ", [fit[1], fit[0]]
