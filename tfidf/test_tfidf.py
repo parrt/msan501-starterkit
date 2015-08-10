@@ -1,7 +1,9 @@
 from tfidf import *
 import re
+import tempfile
 
-def test_get_text(tmpdir):
+def test_get_text():
+    tmpdir = tempfile.gettempdir()
     xml = \
         """<?xml version="1.0" encoding="iso-8859-1" ?>
         <newsitem itemid="99" id="root" date="1996-10-21" xml:lang="en">
@@ -22,7 +24,7 @@ def test_get_text(tmpdir):
         <dc element="dc.source" value="Cat Reuters"/>
         </metadata>
         </newsitem>"""
-    fullpath = tmpdir.dirname + "/" + tmpdir.basename + "/cat.xml"
+    fullpath = tmpdir+"/cat.xml"
     xmlfile = open(fullpath, "w")
     xmlfile.write(xml)
     xmlfile.close()
@@ -78,7 +80,8 @@ def test_words():
     assert expecting == result
 
 
-def test_simple_index(tmpdir, capsys):
+def test_simple_index():
+    tmpdir = tempfile.gettempdir()
     xml = """
 		<newsitem>
 		<title>Premium price set</title>
@@ -87,7 +90,7 @@ def test_simple_index(tmpdir, capsys):
 		</text>
 		</newsitem>
 	"""
-    fullpath1 = tmpdir.dirname + "/" + tmpdir.basename + "/1.xml"
+    fullpath1 = tmpdir+"/1.xml"
     save(xml, fullpath1)
     xml = """
 		<newsitem>
@@ -97,7 +100,7 @@ def test_simple_index(tmpdir, capsys):
 		</text>
 		</newsitem>
 	"""
-    fullpath2 = tmpdir.dirname + "/" + tmpdir.basename + "/2.xml"
+    fullpath2 = tmpdir+"/2.xml"
     save(xml, fullpath2)
     (tf_map, df) = create_indexes([fullpath1, fullpath2])
     tf_map = simplify_tf_map(tf_map)
@@ -108,6 +111,9 @@ def test_simple_index(tmpdir, capsys):
                         'currently': '0.0714', 'based': '0.0714', 'was': '0.0714',
                         'average': '0.0714'})
     assert map1 == expected
+    expected = Counter({'and': 2, 'said': 2, 'was': 2, 'index': 1, 'confidence': 1, 'set': 1, 'premium': 1, 'german': 1, 'rose': 1, 'price': 1, 'official': 1, 'percent': 1, 'consumer': 1, 'unchanged': 1, 'one': 1, 'september': 1, 'currently': 1, 'based': 1, 'the': 1, 'rises': 1, 'average': 1})
+    assert df == expected
+
     map2 = tf_map[fullpath2]
     expected = Counter({'confidence': '0.1333', 'consumer': '0.1333', 'and': '0.0667',
                         'index': '0.0667', 'said': '0.0667', 'german': '0.0667',
@@ -115,9 +121,6 @@ def test_simple_index(tmpdir, capsys):
                         'unchanged': '0.0667', 'percent': '0.0667', 'one': '0.0667',
                         'september': '0.0667', 'rises': '0.0667', 'was': '0.0667'})
     assert map2 == expected
-
-
-# (out,err) = capsys.readouterr()
 
 ################# SUPPORT CODE #################
 
@@ -139,3 +142,4 @@ def save(xml, fullpath):
     xmlfile = open(fullpath, "w")
     xmlfile.write(xml)
     xmlfile.close()
+
