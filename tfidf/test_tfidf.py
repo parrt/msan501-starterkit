@@ -1,6 +1,8 @@
 from tfidf import *
 import re
 import tempfile
+from collections import Counter
+
 
 def test_get_text():
     tmpdir = tempfile.gettempdir()
