@@ -4,14 +4,11 @@ import sys
 
 def test1():
     gr = \
-    """a: b, c
-    b: c, d
-    c: b
-    d: c
-    """
-    print "Test #1:"
-    print gr
-
+"""a: b, c
+b: c, d
+c: b
+d: c
+"""
     al = adjlist(gr)
     am = adjmatrix(al)
     nl = ['a','b','c','d']
@@ -36,18 +33,14 @@ def test1():
 
 def test2():
     gr = \
-    """Paul: Jenny
-    Jenny: Marcelo
-    Marcelo: Chris, Eileen, Pamela
-    Chris: Terence
-    Eileen: Paul
-    Pamela: Paul
-    Terence: Paul
-
-    """
-
-    print "Test #2:"
-    print gr
+"""Paul: Jenny
+Jenny: Marcelo
+Marcelo: Chris, Eileen, Pamela
+Chris: Terence
+Eileen: Paul
+Pamela: Paul
+Terence: Paul
+"""
 
     al = adjlist(gr)
     am = adjmatrix(al)
@@ -56,7 +49,6 @@ def test2():
     for n in nl:
         reach[n] = nodes(al, n)
 
-    #print al
     assert set(al['Paul']) == {'Jenny'}
     assert set(al['Jenny']) == {'Marcelo'}
     assert set(al['Marcelo']) == {'Chris', 'Eileen', 'Pamela'}
@@ -64,16 +56,14 @@ def test2():
     assert set(al['Pamela']) == {'Paul'}
     assert set(al['Terence']) == {'Paul'}
     
-    #print am
     assert str(am), "[[0, 1, 0, 0, 0, 0, 0],"+\
-                          " [0, 0, 1, 0, 0, 0, 0],"+\
-                          " [0, 0, 0, 1, 1, 1, 0],"+\
-                          " [0, 0, 0, 0, 0, 0, 1],"+\
-                          " [1, 0, 0, 0, 0, 0, 0],"+\
-                          " [1, 0, 0, 0, 0, 0, 0],"+\
-                          " [1, 0, 0, 0, 0, 0, 0]]"
+		      " [0, 0, 1, 0, 0, 0, 0],"+\
+		      " [0, 0, 0, 1, 1, 1, 0],"+\
+		      " [0, 0, 0, 0, 0, 0, 1],"+\
+		      " [1, 0, 0, 0, 0, 0, 0],"+\
+		      " [1, 0, 0, 0, 0, 0, 0],"+\
+		      " [1, 0, 0, 0, 0, 0, 0]]"
 
-    #print reach
     # use a set to check equality to ignore order
     assert set(reach['Paul']) == {'Paul', 'Jenny', 'Marcelo', 'Chris', 'Eileen', 'Pamela', 'Terence'}
     assert set(reach['Jenny']) == {'Paul', 'Jenny', 'Marcelo', 'Chris', 'Eileen', 'Pamela', 'Terence'}
