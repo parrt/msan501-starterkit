@@ -4,7 +4,7 @@ import string
 
 
 def filelist(root):
-    """Return a fully-qualified list of filenames under root directory""
+    """Return a fully-qualified list of filenames under root directory"""
 
 
 def get_text(fileName):
@@ -35,7 +35,7 @@ def results(docs, terms):
 
 
 def filenames(docs):
-    """Return just the filenames from list of fully-qualified filenames""
+    """Return just the filenames from list of fully-qualified filenames"""
     if docs is None:
         return []
     return [os.path.basename(d) for d in docs]
