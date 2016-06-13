@@ -51,13 +51,6 @@ def htable_buckets_str(table):
 	0004->
     where parrt:99 indicates an association of (parrt,99) in bucket 3.
     """
-    s = ""
-    for i in range(len(table)):
-        bucketlist = table[i]
-        s += "%04d" % i + "->"
-        bucket = [str(k)+":"+str(v) for (k,v) in bucketlist]
-        s += ", ".join(bucket) + "\n"
-    return s
 
 
 def htable_str(table):
