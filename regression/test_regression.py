@@ -41,3 +41,10 @@ def test_5():
 
 def test_6():
     check([-15, 0],  Cost, HOURLY_WAGE, MURDERS, LEARNING_RATE, h, PRECISION)
+
+test_1()
+test_2()
+test_3()
+test_4()
+test_5()
+test_6()
