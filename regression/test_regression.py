@@ -1,4 +1,4 @@
-from regression import *
+from minimize import *
 import numpy as np
 
 

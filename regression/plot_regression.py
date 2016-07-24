@@ -1,6 +1,6 @@
 from pylab import show, text
 
-from regression import *
+from minimize import *
 
 # Average hourly wage
 HOURLY_WAGE = [2.98, 3.09, 3.23, 3.33, 3.46, 3.6, 3.73, 2.91, 4.25, 4.47, 5.04, 5.47, 5.76]
