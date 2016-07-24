@@ -1,4 +1,5 @@
-from pylab import show, text
+from pylab import show, text, imshow, plot
+import matplotlib.pyplot as plt
 
 from minimize import *
 

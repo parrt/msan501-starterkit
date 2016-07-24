@@ -1,6 +1,5 @@
 import numpy as np
 from pylab import imshow, plot
-import matplotlib.pyplot as plt
 
 def minimize(f, B0, eta, h, precision):
     trace = []
