@@ -15,7 +15,7 @@ def Cost(B,X=HOURLY_WAGE,Y=MURDERS):
 	return cost
 
 
-def heatmap(X, Y, f, trace=None): # trace is a list of [b1, b2] pairs
+def heatmap(f, trace=None): # trace is a list of [b1, b2] pairs
 	...
 
 
@@ -25,6 +25,6 @@ begin = time.time()
 (m,steps,trace) = minimize(Cost, B0, LEARNING_RATE, h, PRECISION)
 end = time.time()
 
-heatmap(HOURLY_WAGE, MURDERS, Cost, trace)
+heatmap(Cost, trace)
 
 show()
