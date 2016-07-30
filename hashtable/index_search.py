@@ -6,10 +6,11 @@ from words import get_text, words
 def create_index(files):
     """
     Given a list of fully-qualified filenames, build an index from word
-    to set of document indexes. The document indexes just the index into the
+    to set of document indexes. The document index is just the index into the
     files parameter (indexed from 0).
     Make sure that you are mapping a word to a set, not a list.
     For each word w in file i, add i to the set of documents containing w
+    Returns a dict object.
     """
 
 

@@ -11,6 +11,7 @@ def myhtable_create_index(files):
     Build an index from word to set of document indexes
     This does the exact same thing as create_index() except that it uses
     your htable.  As a number of htable buckets, use 4011.
+    Returns a list-of-buckets hashtable representation.
     """
 
 
