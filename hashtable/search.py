@@ -13,10 +13,18 @@ from words import filelist, words, results
 """
 Usage:
 
-$ python search.py linear data/slate
-$ python search.py index data/slate
-$ python search.py myhtable data/slate
+$ python search.py linear /Users/USERID/msan501/data/slate
+$ python search.py index /Users/USERID/msan501/data/slate
+$ python search.py myhtable /Users/USERID/msan501/data/slate
 """
+
+impl = sys.argv[1]
+rootdir = sys.argv[2]
+files = filelist(rootdir)
+# Uncomment the next line to test just the first 100 files instead of all files
+# files = files[:100]
+N = len(files)
+print N, "files"
 
 index = None
 
@@ -44,4 +52,3 @@ while True:
     f.write(page)
     f.close()
     webbrowser.open_new_tab("file:///tmp/results.html")
-
