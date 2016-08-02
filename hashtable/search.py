@@ -18,13 +18,7 @@ $ python search.py index data/slate
 $ python search.py myhtable data/slate
 """
 
-impl = sys.argv[1]
-rootdir = sys.argv[2]
-files = filelist(rootdir)
-# Uncomment the next line to test just the first 100 files instead of all files
-# files = files[:100]
-N = len(files)
-print N, "files"
+index = None
 
 while True:
     terms = raw_input("Search terms: ")
@@ -33,12 +27,14 @@ while True:
     if impl=='linear':
         docs = linear_search(files, terms)
     elif impl == 'index':
-        index = create_index(files)
-        print "Index complete"
+        if index is None:
+            index = create_index(files)
+            print "Index complete"
         docs = index_search(files, index, terms)
     elif impl == 'myhtable':
-        index = myhtable_create_index(files)
-        print "Index complete"
+        if index is None:
+            index = myhtable_create_index(files)
+            print "Index complete"
         docs = myhtable_index_search(files, index, terms)
     else:
         print "Invalid search type:", impl
@@ -48,3 +44,4 @@ while True:
     f.write(page)
     f.close()
     webbrowser.open_new_tab("file:///tmp/results.html")
+
