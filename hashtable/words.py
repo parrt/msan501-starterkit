@@ -29,7 +29,8 @@ def words(text):
 def results(docs, terms):
     """
     Given a list of fully-qualifed filenames, return an HTML file
-    that displays the results and up to 2 lines from the file.
+    that displays the results and up to 2 lines from the file
+    that have at least one of the search terms.
     Return at most 100 results.  Arg terms is a list of string terms.
     """
 
