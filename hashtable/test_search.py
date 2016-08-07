@@ -1,5 +1,5 @@
 from index_search import index_search, create_index
-from linsearch import linear_search
+from linear_search import linear_search
 from myhtable_search import myhtable_index_search, myhtable_create_index
 from words import filelist, words, filenames
 
