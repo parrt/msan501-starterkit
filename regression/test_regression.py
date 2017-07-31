@@ -22,7 +22,8 @@ def check(B0, f, X, Y, eta, h, precision):
 
     fit = np.polyfit(X, Y, 1)
     print "exact is               ", [fit[1], fit[0]]
-    assert int(m[0]*1000) == int(fit[1]*1000)
+    assert np.isclose(m[0], fit[1]), "%f!=%f" % (m[0], fit[1])
+
 
 def test_1():
     check([-23, 12], Cost, HOURLY_WAGE, MURDERS, LEARNING_RATE, h, PRECISION)
