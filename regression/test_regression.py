@@ -9,7 +9,7 @@ MURDERS     = [8.6, 8.9, 8.52, 8.89, 13.07, 14.57, 21.36, 28.03, 31.49, 37.39, 4
 
 LEARNING_RATE = ... # fill in with your values
 h = ... # fill in with your values
-PRECISION = 0.000001
+PRECISION = 0.0000001
 
 def Cost(B,X=HOURLY_WAGE,Y=MURDERS):
 	...
