@@ -27,4 +27,9 @@ end = time.time()
 
 heatmap(Cost, trace)
 
+# Add text to heatmap
+plt.plot(B0[0], B0[1], "ro")
+plt.text(B0[0]-.2, B0[1]+0.8, "start", fontsize=16)
+...
+
 show()
